@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2icrh6dg3dgk"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_2mrev"]
+size = Vector2(2, 7)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ytsse"]
+size = Vector2(2, 7)
+
+[node name="Root" type="Node3D"]
+
+[node name="Arm1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
+mesh = SubResource("QuadMesh_2mrev")
+
+[node name="Arm2" type="MeshInstance3D" parent="Arm1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+mesh = SubResource("QuadMesh_ytsse")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 9)
+current = true
+near = 0.027
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+light_color = Color(0.603922, 1, 0.854902, 1)
+light_energy = 4.071
+omni_range = 7.203
