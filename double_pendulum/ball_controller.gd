@@ -1,70 +1,48 @@
 extends Node3D
 
-var rope_length : int = 1
-var upper_pos : Vector3
-var lower_pos : Vector3
-var anchor_pos : Vector3
-var upper_angle : float
-var lower_angle : float
-var x1 : float
-var x2 : float
-var y1 : float
-var y2 : float
-var v_1 : Vector3
-var v_2 : Vector3
-var gravity : float = 9.81
-var theta_double_1 : float = 0
-var theta_double_2 : float = 0
-var theta_single_1 : float = 0
-var theta_single_2 : float = 0
-var mass_1 : int = 1
-var mass_2 : int = 1
+var accel_1_x : float = 0
+var accel_1_y : float = 0
+var accel_2_x : float = 0
+var accel_2_y : float = 0
+var vel_1_x : float = 0
+var vel_1_y : float = 0
+var vel_2_x : float = 0
+var vel_2_y : float = 0
+var angle_1 : float
+var angle_2 : float
+var rope_length : float = 1
+var x_1 : float
+var y_1 : float
+var x_2 : float
+var y_2 : float
+var initial_angle : float
+var prev_pos : Vector3
 
 @onready var upper_ball = $"Upper Ball"
 @onready var lower_ball = $"Lower Ball"
 @onready var anchor = $"Anchor"
 
-# Equations
-# https://web.mit.edu/jorloff/www/chaosTalk/double-pendulum/double-pendulum-en.html
 
 func _ready() -> void:
-	anchor_pos = anchor.get_global_position() # Gets position of anchor
 	pass 
 
 func _physics_process(delta: float) -> void:
-	upper_pos = upper_ball.get_global_position() # Gets position of upper ball every frame
-	lower_pos = lower_ball.get_global_position() # Gets position of lower ball every frame
+	x_1 = upper_ball.position.x
+	y_1 = upper_ball.position.y
+	x_2 = lower_ball.position.x
+	y_2 = lower_ball.position.y
 	
-	x1 = upper_pos.x
-	y1 = upper_pos.y
-	x2 = lower_pos.x
-	y2 = lower_pos.y
+	angle_1 = asin(x_1/rope_length)
 	
-	# x1 = L1sin(theta1)
-	upper_angle = asin(x1/rope_length) # Gets angle of upper ball from anchor
-	# x2 = x1 + L2sin(theta2)
-	lower_angle = asin((x2 - x1) / rope_length) # Gets angle of lower ball from upper ball
+	accel_1_x = -9.81 * sin(angle_1)
+	accel_1_y = -9.81 * cos(angle_1)
 	
-	theta_single_1 += get_theta_double_1(upper_angle, lower_angle, theta_single_1, theta_single_2) * (1/60)
-	theta_single_2 += get_theta_double_1(upper_angle, lower_angle, theta_single_1, theta_single_2) * (1/60)
+	vel_1_x += accel_1_x / 60
+	vel_1_y += accel_1_y / 60
 	
-	v_1.x += theta_single_1 * rope_length * cos(upper_angle)
+	prev_pos = upper_ball.position
+	upper_ball.position = prev_pos + Vector3(vel_1_x/60, vel_1_y/60, 0)
 	
-	
-	
-	
+	print(x_1, accel_1_y, "		", angle_1)
 	pass
 	
-func get_theta_double_1(angle1, angle2, theta_single_1, theta_single_2):
-	return ( \
-			-1 * gravity * (2*mass_1 + mass_2) * sin(angle1) \
-			- mass_2 * gravity * sin(angle1 - 2*angle2) \
-			- 2*sin(angle1-angle2) * mass_2 * (theta_single_2**2 * rope_length + theta_single_1**2 * rope_length * cos(angle1-angle2)) \
-			/ (rope_length * (2*mass_1 + mass_2 - mass_2 * cos(2*angle1-2*angle2))))
-
-func get_theta_double_2(angle1, angle2, theta_single_1, theta_single_2):
-	return ( \
-			2*sin(angle1-angle2) * (angle1**2 * rope_length * (mass_1+mass_2)) \
-			+ gravity*(mass_1+mass_2) * cos(angle1) \
-			+ angle2**2 * rope_length * mass_2 * cos(angle1-angle2) \
-			/ (rope_length * (2*mass_1 + mass_2 - mass_2 * cos(2*angle1 - 2*angle2))))
