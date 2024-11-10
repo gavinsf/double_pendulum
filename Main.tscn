@@ -17,7 +17,7 @@ mesh = SubResource("QuadMesh_2mrev")
 script = ExtResource("1_0i2ke")
 
 [node name="Arm2" type="Node3D" parent="Arm1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.9, 0)
 script = ExtResource("2_b253n")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Arm1/Arm2"]
