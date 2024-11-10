@@ -1,4 +1,4 @@
-extends MeshInstance3D
+extends Node3D
 
 # Pendulum parameters
 var angle = 0.5  # Initial angle in radians (adjust as desired)

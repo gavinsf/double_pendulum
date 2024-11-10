@@ -23,19 +23,6 @@ size = Vector2(2, 5)
 
 [node name="Root" type="Node3D"]
 
-[node name="Arm1" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
-mesh = SubResource("QuadMesh_2mrev")
-script = ExtResource("1_0i2ke")
-
-[node name="Arm2" type="Node3D" parent="Arm1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.7, 0)
-script = ExtResource("2_b253n")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Arm1/Arm2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
-mesh = SubResource("QuadMesh_bg6f7")
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 9)
 current = true
@@ -46,3 +33,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 light_color = Color(0.603922, 1, 0.854902, 1)
 light_energy = 4.071
 omni_range = 7.203
+
+[node name="Arm_1" type="Node3D" parent="."]
+script = ExtResource("1_0i2ke")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Arm_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
+mesh = SubResource("QuadMesh_2mrev")
+skeleton = NodePath("../..")
+
+[node name="Node3D" type="Node3D" parent="Arm_1/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="Arm_2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.2, 0)
+script = ExtResource("2_b253n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Arm_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+mesh = SubResource("QuadMesh_bg6f7")
