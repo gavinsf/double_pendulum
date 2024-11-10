@@ -1,20 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://c2icrh6dg3dgk"]
+[gd_scene load_steps=5 format=3 uid="uid://c2icrh6dg3dgk"]
+
+[ext_resource type="Script" path="res://arm_1.gd" id="1_0i2ke"]
+[ext_resource type="Script" path="res://Arm2.gd" id="2_b253n"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_2mrev"]
-size = Vector2(2, 7)
+size = Vector2(2, 5)
 
-[sub_resource type="QuadMesh" id="QuadMesh_ytsse"]
-size = Vector2(2, 7)
+[sub_resource type="QuadMesh" id="QuadMesh_bg6f7"]
+size = Vector2(2, 5)
 
 [node name="Root" type="Node3D"]
 
 [node name="Arm1" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
 mesh = SubResource("QuadMesh_2mrev")
+script = ExtResource("1_0i2ke")
 
-[node name="Arm2" type="MeshInstance3D" parent="Arm1"]
+[node name="Arm2" type="Node3D" parent="Arm1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
-mesh = SubResource("QuadMesh_ytsse")
+script = ExtResource("2_b253n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Arm1/Arm2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+mesh = SubResource("QuadMesh_bg6f7")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 9)
