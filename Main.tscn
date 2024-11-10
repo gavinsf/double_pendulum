@@ -39,6 +39,7 @@ script = ExtResource("1_0i2ke")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Arm_1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
+transparency = 0.08
 mesh = SubResource("QuadMesh_2mrev")
 skeleton = NodePath("../..")
 
@@ -51,4 +52,7 @@ script = ExtResource("2_b253n")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Arm_2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+transparency = 0.08
+cast_shadow = 2
+lod_bias = 0.001
 mesh = SubResource("QuadMesh_bg6f7")
